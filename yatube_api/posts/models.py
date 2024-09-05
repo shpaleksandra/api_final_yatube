@@ -29,7 +29,7 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to='posts/', null=True, blank=True,
         verbose_name='Изображение'
-    )  # поле для картинки
+    )
     group = models.ForeignKey(
         Group, on_delete=models.SET_NULL,
         related_name='posts', blank=True, null=True,
@@ -70,14 +70,19 @@ class Follow(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='follower')
+        related_name='follower',
+        verbose_name='Подписчик')
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='following'
+        related_name='following',
+        verbose_name='Пользователь'
     )
 
     class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+
         constraints = [
             models.UniqueConstraint(
                 fields=['user', 'following'],
